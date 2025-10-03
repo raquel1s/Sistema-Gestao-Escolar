@@ -1,8 +1,8 @@
 package com.weg.gestao_escola.controller;
 
-import com.weg.gestao_escola.dto.aluno.AlunoRequisicaoDTO;
-import com.weg.gestao_escola.dto.aluno.AlunoRespostaDTO;
-import com.weg.gestao_escola.service.AlunoService;
+import com.weg.gestao_escola.dto.aula.AulaRequisicaoDTO;
+import com.weg.gestao_escola.dto.aula.AulaRespostaDTO;
+import com.weg.gestao_escola.service.AulaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,37 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/aulas")
+public class AulaController {
 
-    private AlunoService service;
+    private AulaService service;
 
-    public AlunoController(AlunoService service) {
+    public AulaController(AulaService service) {
         this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<AlunoRespostaDTO>> listarAlunos(){
+    public ResponseEntity<List<AulaRespostaDTO>> listarAulas(){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.listarAlunos());
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarAulas());
         }catch (Exception e){
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlunoRespostaDTO> buscarAlunoPorId(@PathVariable int id){
+    public ResponseEntity<AulaRespostaDTO> buscarAulaPorId(@PathVariable int id){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.buscarAlunoPorId(id));
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarAulaPorId(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<AlunoRespostaDTO> criar(@RequestBody AlunoRequisicaoDTO requisicaoDTO){
+    public ResponseEntity<AulaRespostaDTO> criar(@RequestBody AulaRequisicaoDTO requisicaoDTO){
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(requisicaoDTO));
         }catch (Exception e){
@@ -49,8 +47,8 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AlunoRespostaDTO> atualizar(@PathVariable int id,
-                                                      @RequestBody AlunoRequisicaoDTO requisicaoDTO){
+    public ResponseEntity<AulaRespostaDTO> atualizar(@PathVariable int id,
+                                                     @RequestBody AulaRequisicaoDTO requisicaoDTO){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoDTO));
         }catch (Exception e){
@@ -62,7 +60,7 @@ public class AlunoController {
     public ResponseEntity<Void> excluir(@PathVariable int id){
         try{
             service.excluir(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

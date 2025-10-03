@@ -37,7 +37,7 @@ public class AlunoService {
             throw new RuntimeException("Aluno não existe!");
         }
 
-        return mapper.paraRespostaDTO(repository.buscarAlunoPorId(id));
+        return mapper.paraRespostaDTO(aluno);
     }
 
     public AlunoRespostaDTO criar(AlunoRequisicaoDTO requisicaoDTO) throws SQLException{

@@ -7,19 +7,25 @@ public class Aula {
 
     private int id;
     private int turmaId;
-    private LocalDateTime data_hora;
+    private LocalDateTime dataHora;
     private String assunto;
 
-    public Aula(int id, int turmaId, LocalDateTime data_hora, String assunto) {
+    public Aula(int id, int turmaId, LocalDateTime dataHora, String assunto) {
         this.id = id;
         this.turmaId = turmaId;
-        this.data_hora = data_hora;
+        this.dataHora = dataHora;
         this.assunto = assunto;
     }
 
-    public Aula(int turmaId, LocalDateTime data_hora, String assunto) {
+    public Aula(int turmaId, LocalDateTime dataHora, String assunto) {
         this.turmaId = turmaId;
-        this.data_hora = data_hora;
+        this.dataHora = dataHora;
+        this.assunto = assunto;
+    }
+
+    public Aula(int id, String assunto, LocalDateTime dataHora) {
+        this.id = id;
+        this.dataHora = dataHora;
         this.assunto = assunto;
     }
 
@@ -39,12 +45,12 @@ public class Aula {
         this.turmaId = turmaId;
     }
 
-    public LocalDateTime getData_hora() {
-        return data_hora;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 
-    public void setData_hora(LocalDateTime data_hora) {
-        this.data_hora = data_hora;
+    public void setDataHora(LocalDateTime data_hora) {
+        this.dataHora = data_hora;
     }
 
     public String getAssunto() {

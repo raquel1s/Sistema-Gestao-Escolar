@@ -16,6 +16,7 @@ public class ProfessorService {
     private ProfessorDAO repository;
     private ProfessorMapper mapper;
 
+
     public ProfessorService(ProfessorDAO repository, ProfessorMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
@@ -35,7 +36,7 @@ public class ProfessorService {
             throw new RuntimeException("Professor não existe!");
         }
 
-        return mapper.paraRespostaDTO(repository.buscarProfessorPorId(id));
+        return mapper.paraRespostaDTO(professor);
     }
 
     public ProfessorRespostaDTO criar(ProfessorRequisicaoDTO requisicaoDTO) throws SQLException{
