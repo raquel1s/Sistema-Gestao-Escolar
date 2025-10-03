@@ -96,7 +96,7 @@ public class AlunoDAO {
     }
 
     public void excluir(int id) throws SQLException {
-        String query = "DELETE aluno WHERE id = ?";
+        String query = "DELETE FROM aluno WHERE id = ?";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
