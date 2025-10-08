@@ -6,6 +6,7 @@ import com.weg.gestao_escola.dto.professor.ProfessorRequisicaoDTO;
 import com.weg.gestao_escola.dto.professor.ProfessorRespostaDTO;
 import com.weg.gestao_escola.service.AlunoService;
 import com.weg.gestao_escola.service.ProfessorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfessorRespostaDTO> criar(@RequestBody ProfessorRequisicaoDTO requisicaoDTO){
+    public ResponseEntity<ProfessorRespostaDTO> criar(@Valid @RequestBody ProfessorRequisicaoDTO requisicaoDTO){
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(requisicaoDTO));
         }catch (Exception e){
@@ -50,7 +51,7 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfessorRespostaDTO> atualizar(@PathVariable int id,
+    public ResponseEntity<ProfessorRespostaDTO> atualizar(@Valid @PathVariable int id,
                                                       @RequestBody ProfessorRequisicaoDTO requisicaoDTO){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoDTO));
