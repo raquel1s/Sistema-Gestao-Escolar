@@ -1,8 +1,8 @@
-package com.weg.gestao_escola.dao;
+package com.weg.gestao_escola.repository;
 
 import com.weg.gestao_escola.conexao.Conexao;
 import com.weg.gestao_escola.model.Curso;
-import com.weg.gestao_escola.model.Professor;
+import com.weg.gestao_escola.util.GerarIn;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -41,7 +41,7 @@ public class CursoDAO {
                 "ON p.id = t.professor_id " +
                 "LEFT JOIN curso c " +
                 "ON t.curso_id = c.id " +
-                "WHERE p.id = ?";
+                "WHERE c.id = ?";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
@@ -57,25 +57,30 @@ public class CursoDAO {
         return professores;
     }
 
-    public String listarNomeProfessoresPeloId(int id) throws SQLException {
-        String nome = "";
+    public List<String> listaProfessorNome(List<Integer> idsProfessores) throws SQLException {
+        String query = """
+                SELECT p.nome
+                FROM professor p
+                LEFT JOIN turma t
+                ON p.id = t.professor_id
+                WHERE p.id IN """+ GerarIn.gerando(idsProfessores.size());
 
-        String query = "SELECT nome as professor " +
-                "FROM professor " +
-                "WHERE id = ?";
+        List<String> nomeProfessores = new ArrayList<>();
 
-        try(Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement(query)){
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, id);
+            for(int i = 0; i < idsProfessores.size(); i++){
+                stmt.setInt(i + 1, idsProfessores.get(i));
+            }
+
             ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()){
-                nome = rs.getString("nome");
+            while(rs.next()) {
+                String nome = rs.getString("nome");
+                nomeProfessores.add(nome);
             }
         }
-
-        return nome;
+        return nomeProfessores;
     }
 
     public Curso buscarCursoPorId(int id) throws SQLException{

@@ -1,10 +1,9 @@
 package com.weg.gestao_escola.service;
 
-import com.weg.gestao_escola.dao.AulaDAO;
+import com.weg.gestao_escola.repository.AulaDAO;
 import com.weg.gestao_escola.dto.aula.AulaRequisicaoDTO;
 import com.weg.gestao_escola.dto.aula.AulaRespostaDTO;
 import com.weg.gestao_escola.mapper.AulaMapper;
-import com.weg.gestao_escola.model.Aluno;
 import com.weg.gestao_escola.model.Aula;
 import com.weg.gestao_escola.model.AulaResposta;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class AulaService {
@@ -27,13 +24,7 @@ public class AulaService {
     }
 
     public List<AulaRespostaDTO> listarAulas() throws SQLException {
-        List<AulaResposta> aulaRespostas = new ArrayList<>();
-
-        for(Aula aula : repository.listarAulas()){
-            aulaRespostas.add(repository.buscarAulaPorIdResposta(aula.getId()));
-        }
-
-        return aulaRespostas.stream()
+        return repository.listarAulas().stream()
                 .map(mapper::paraRespostaDTO)
                 .toList();
     }

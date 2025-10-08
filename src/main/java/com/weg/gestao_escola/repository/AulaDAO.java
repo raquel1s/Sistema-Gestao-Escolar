@@ -1,4 +1,4 @@
-package com.weg.gestao_escola.dao;
+package com.weg.gestao_escola.repository;
 
 import com.weg.gestao_escola.conexao.Conexao;
 import com.weg.gestao_escola.model.Aula;
@@ -6,7 +6,6 @@ import com.weg.gestao_escola.model.AulaResposta;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.weg.gestao_escola.service;
 
-import com.weg.gestao_escola.dao.CursoDAO;
+import com.weg.gestao_escola.repository.CursoDAO;
 import com.weg.gestao_escola.dto.curso.CursoRequisicaoDTO;
 import com.weg.gestao_escola.dto.curso.CursoRespostaDTO;
 import com.weg.gestao_escola.mapper.CursoMapper;
@@ -45,13 +45,9 @@ public class CursoService {
     }
 
     public CursoRespostaDTO criar(CursoRequisicaoDTO requisicaoDTO) throws SQLException{
-        List<String> professores = new ArrayList<>();
+        List<String> nomeProfessores = repository.listaProfessorNome(requisicaoDTO.listaProfessorIds());
 
-        for(int idProf : requisicaoDTO.listaProfessorIds()){
-            professores.add(repository.listarNomeProfessoresPeloId(idProf));
-        }
-
-        return mapper.paraRespostaDTO(repository.criar(mapper.paraEntidade(requisicaoDTO)), professores);
+        return mapper.paraRespostaDTO(repository.criar(mapper.paraEntidade(requisicaoDTO)), nomeProfessores);
     }
 
     public CursoRespostaDTO atualizar(int id, CursoRequisicaoDTO requisicaoDTO) throws SQLException{
@@ -61,11 +57,7 @@ public class CursoService {
             throw new RuntimeException("Professor não existe!");
         }
 
-        List<String> professores = new ArrayList<>();
-
-        for(int idProf : requisicaoDTO.listaProfessorIds()){
-            professores.add(repository.listarNomeProfessoresPeloId(idProf));
-        }
+        List<String> professores = repository.listaProfessorNome(requisicaoDTO.listaProfessorIds());
 
         Curso newCurso = mapper.paraUpdate(requisicaoDTO, curso);
         repository.atualizar(id, newCurso);

@@ -42,6 +42,7 @@ public class CursoController {
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(requisicaoDTO));
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

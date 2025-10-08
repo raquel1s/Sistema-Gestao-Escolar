@@ -1,13 +1,11 @@
 package com.weg.gestao_escola.service;
 
-import com.weg.gestao_escola.dao.AlunoDAO;
+import com.weg.gestao_escola.repository.AlunoDAO;
 import com.weg.gestao_escola.dto.aluno.AlunoRequisicaoDTO;
 import com.weg.gestao_escola.dto.aluno.AlunoRespostaDTO;
 import com.weg.gestao_escola.mapper.AlunoMapper;
 import com.weg.gestao_escola.model.Aluno;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;

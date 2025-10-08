@@ -1,4 +1,4 @@
-package com.weg.gestao_escola.dao;
+package com.weg.gestao_escola.repository;
 
 import com.weg.gestao_escola.conexao.Conexao;
 import com.weg.gestao_escola.model.Aluno;

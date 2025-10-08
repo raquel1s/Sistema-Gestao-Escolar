@@ -1,6 +1,6 @@
 package com.weg.gestao_escola.service;
 
-import com.weg.gestao_escola.dao.ProfessorDAO;
+import com.weg.gestao_escola.repository.ProfessorDAO;
 import com.weg.gestao_escola.dto.professor.ProfessorRequisicaoDTO;
 import com.weg.gestao_escola.dto.professor.ProfessorRespostaDTO;
 import com.weg.gestao_escola.mapper.ProfessorMapper;
