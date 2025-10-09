@@ -20,6 +20,11 @@ public class Turma {
         this.professorId = professorId;
     }
 
+    public Turma(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public int getId() {
         return id;
     }
