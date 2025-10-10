@@ -46,13 +46,11 @@ public class TurmaService {
     }
 
     public TurmaRespostaDTO criar(TurmaRequisicaoDTO requisicaoDTO) throws SQLException {
-        List<String> nomeAlunos = repository.listaAlunoNome(requisicaoDTO.listaAlunoIds());
+        List<String> nomeAlunos = repository.buscarListaNomesPorId(requisicaoDTO.listaAlunoIds());
 
         Turma turma = repository.criar(mapper.paraEntidade(requisicaoDTO));
 
-        for (int id : requisicaoDTO.listaAlunoIds()) {
-            repository.inserirTurmaAluno(turma.getId(), id);
-        }
+        repository.inserirTurmaAluno(turma.getId(), requisicaoDTO.listaAlunoIds());
 
         return mapper.paraRespostaDTO(repository.buscarTurmaPorId(turma.getId()), nomeAlunos);
     }
@@ -64,7 +62,7 @@ public class TurmaService {
             throw new RuntimeException("Turma não existe!");
         }
 
-        List<String> alunos = repository.listaAlunoNome(requisicaoDTO.listaAlunoIds());
+        List<String> alunos = repository.buscarListaNomesPorId(requisicaoDTO.listaAlunoIds());
 
         Turma newTurma = mapper.paraUpdate(requisicaoDTO, turma);
         repository.atualizar(id, newTurma);

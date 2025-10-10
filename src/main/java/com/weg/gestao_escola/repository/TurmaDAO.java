@@ -68,21 +68,19 @@ public class TurmaDAO {
         return alunos;
     }
 
-    public List<String> listaAlunoNome(List<Integer> idsAlunos) throws SQLException {
+    public List<String> buscarListaNomesPorId(List<Integer> idAlunos) throws SQLException {
         String query = """
-                SELECT a.nome
-                FROM aluno a
-                LEFT JOIN turma_aluno ta
-                ON a.id = ta.aluno_id
-                WHERE a.id IN """ + GerarIn.gerando(idsAlunos.size());
+                SELECT nome
+                FROM aluno
+                WHERE id IN """ + GerarIn.gerando(idAlunos.size());
 
         List<String> nomeAlunos = new ArrayList<>();
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            for(int i = 0; i < idsAlunos.size(); i++){
-                stmt.setInt(i + 1, idsAlunos.get(i));
+            for(int i = 0; i < idAlunos.size(); i++){
+                stmt.setInt(i + 1, idAlunos.get(i));
             }
 
             ResultSet rs = stmt.executeQuery();
@@ -146,15 +144,17 @@ public class TurmaDAO {
         return turma;
     }
 
-    public void inserirTurmaAluno(int idTurma, int idAluno) throws SQLException{
+    public void inserirTurmaAluno(int idTurma, List<Integer> idAlunos) throws SQLException{
         String query = "INSERT INTO turma_aluno (turma_id, aluno_id) VALUES (?,?)";
 
-        try(Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement(query)){
+        for(Integer idAluno : idAlunos){
+            try(Connection conn = Conexao.conectar();
+                PreparedStatement stmt = conn.prepareStatement(query)){
 
-            stmt.setInt(1, idTurma);
-            stmt.setInt(2, idAluno);
-            stmt.executeUpdate();
+                stmt.setInt(1, idTurma);
+                stmt.setInt(2, idAluno);
+                stmt.executeUpdate();
+            }
         }
     }
 

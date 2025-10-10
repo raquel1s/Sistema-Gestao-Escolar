@@ -59,11 +59,9 @@ public class CursoDAO {
 
     public List<String> listaProfessorNome(List<Integer> idsProfessores) throws SQLException {
         String query = """
-                SELECT p.nome
-                FROM professor p
-                LEFT JOIN turma t
-                ON p.id = t.professor_id
-                WHERE p.id IN """+ GerarIn.gerando(idsProfessores.size());
+                SELECT nome
+                FROM professor
+                WHERE id IN """+ GerarIn.gerando(idsProfessores.size());
 
         List<String> nomeProfessores = new ArrayList<>();
 
