@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class TurmaDAO {
 
-    public List<TurmaResposta> listarCursos() throws SQLException {
+    public List<TurmaResposta> listarTurmas() throws SQLException {
         List<TurmaResposta> turmas = new ArrayList<>();
         String query = "SELECT t.id, " +
                 "t.nome, " +
@@ -45,7 +45,7 @@ public class TurmaDAO {
     }
 
 
-    public List<String> listarNomeAlunos(int id) throws SQLException {
+    public List<String> buscarListaNomeAlunosPorTurma(int id) throws SQLException {
         List<String> alunos = new ArrayList<>();
 
         String query = "SELECT a.nome as nome " +

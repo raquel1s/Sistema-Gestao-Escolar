@@ -20,6 +20,11 @@ public class Nota {
         this.valor = valor;
     }
 
+    public Nota(int id, double valor) {
+        this.valor = valor;
+    }
+
+
     public int getId() {
         return id;
     }

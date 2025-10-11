@@ -24,15 +24,14 @@ public class TurmaService {
     }
 
     public List<TurmaRespostaDTO> listarTurmas() throws SQLException {
-        List<TurmaRespostaDTO> cursos = new ArrayList<>();
+        List<TurmaRespostaDTO> turmas = new ArrayList<>();
 
-        for(TurmaResposta turma : repository.listarCursos()){
-            cursos.add(
-                    mapper.paraRespostaDTO
-                            (turma, repository.listarNomeAlunos(turma.getId())));
+        for(TurmaResposta turma : repository.listarTurmas()){
+            List<String> alunos = repository.buscarListaNomeAlunosPorTurma(turma.getId());
+            turmas.add(mapper.paraRespostaDTO(turma, alunos));
         }
 
-        return cursos;
+        return turmas;
     }
 
     public TurmaRespostaDTO buscarTurmaPorId(int id) throws SQLException{
@@ -42,7 +41,7 @@ public class TurmaService {
             throw new RuntimeException("Curso não existe!");
         }
 
-        return mapper.paraRespostaDTO(turma, repository.listarNomeAlunos(turma.getId()));
+        return mapper.paraRespostaDTO(turma, repository.buscarListaNomeAlunosPorTurma(turma.getId()));
     }
 
     public TurmaRespostaDTO criar(TurmaRequisicaoDTO requisicaoDTO) throws SQLException {
